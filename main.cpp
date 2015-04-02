@@ -168,8 +168,11 @@ int main()
             one_game_process();
         }
         cout<<""<<endl;
-        cout<<"Continue?(y/n)£º";
+        cout<<"Continue?(y/n)";
         cin>>conti;
     }
     return 0;
 }
+//there is no possibility of tie in my program. although the implementation is easy, in my program, the computer tries to win 
+//the player with the lowest cost. if computer faces a tie, it will ask for more in order to win.
+//I think this resembles our way to play the twenty-one point.
