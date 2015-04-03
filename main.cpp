@@ -91,7 +91,8 @@ void one_game_process()
     double counter_for_pla=0,counter_for_com=0;//the points of player and computer.
     int poker_for_pla=0,poker_for_com=0;//the number of player's pokers and computer's pokers.
     int first,second;//the first two cards.
-    char more;
+    string more;
+    bool input_valid;
     clean(poker,used_poker);//clean is the riffle process.
     first=deal(poker);//deal is to give out the card.
     second=deal(poker);
@@ -102,11 +103,29 @@ void one_game_process()
     poker_for_pla=poker_for_pla+2;
     used_poker[0]=first;
     used_poker[1]=second;
-    while (more!='n')
+    more='D';//we don't know whether user want to continue.
+    while ((more!="n")&&(more!="N"))
     {
-        cout<<"Continue?(y/n):";
-        cin>>more;
-        if (more=='y')
+    	input_valid=0;
+        while(!input_valid)
+        {
+			cout<<"Continue?(y/n):";
+			cin>>more;
+			try
+	        {
+	        	if((more!="N")&&(more!="n")&&(more!="Y")&&(more!="y")){
+	        		throw more;
+			   }
+				else{
+					input_valid=1;
+				}
+			}
+			catch(string &wrong)
+			{
+				input_valid=0;
+			}
+		}
+        if (more=="y"||more=="Y")
         {
             int another;
             another=deal(poker);
@@ -156,20 +175,37 @@ void one_game_process()
     }
     cout<<"The computer wins."<<endl;
     return;
-
 }
 
 int main()
 {
-    char conti='y';
-    while (conti!='n')
+    string conti="y";
+    bool input_valid;
+    while ((conti!="n")&&(conti!="N"))
     {
-        if (conti=='y'){
+        if (conti=="y"||conti=="Y"){
             one_game_process();
+            cout<<""<<endl;
         }
-        cout<<""<<endl;
-        cout<<"Continue?(y/n)";
-        cin>>conti;
+        input_valid=0;
+        while (!input_valid)
+        {
+        	cout<<"Continue?(y/n):"<<endl;
+			cin>>conti;
+	        try
+	        {
+	        	if((conti!="N")&&(conti!="n")&&(conti!="Y")&&(conti!="y")){
+	        		throw conti;
+				}
+				else{
+					input_valid=1;
+				}
+			}
+			catch(string &wrong)
+			{
+				input_valid=0;
+			}
+		}
     }
     return 0;
 }
